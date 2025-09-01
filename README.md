@@ -4,7 +4,7 @@ Devices are simulated in Spring Boot simulator, while frontend and backend are s
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 - [Project Structure](#project-structure)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
@@ -54,7 +54,7 @@ Devices are simulated in Spring Boot simulator, while frontend and backend are s
 
 ---
 
-## 🗄️ Database Structure (Firebase Realtime Database)
+## Database Structure (Firebase Realtime Database)
 
 The application uses **Firebase Realtime Database** to store users, devices, access permissions, and logs.  
 Data is stored in a tree-like JSON structure with the following main nodes:
