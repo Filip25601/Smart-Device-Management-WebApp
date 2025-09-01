@@ -2,19 +2,36 @@
 This project is a full-stack web application for managing smart devices with real-time updates.
 Devices are simulated in Spring Boot simulator, while frontend and backend are separate applications connected through **Firebase Realtime Database**.
 
---
+---
 
-## Table of Contents
+## 📑 Table of Contents
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [API Endpoints](#api-endpoints)
+  - [User Endpoints](#user-endpoints)
+  - [Door Endpoints](#door-endpoints)
+  - [Air Conditioner Endpoints](#air-conditioner-endpoints)
+  - [Alarm Endpoints](#alarm-endpoints)
+- [Screenshots](#screenshots)
+  - [Login](#login)
+  - [SuperAdmin Interface](#superadmin-interface)
+  - [Admin Interface](#admin-interface)
+  - [User Interface](#user-interface)
+  - [Access](#access)
+  - [Air Condition](#air-condition)
+  - [Alarm](#alarm)
+  - [Break-in](#break-in)
+  - [Door](#door)
 
-
---
+---
 
 ## Project Structure 
-- frontend/** -> React application (user interface, Google login, managing devices)
-- backend/** -> Spring Boot application (REST API, authentication,access control)
-- simulator/** -> Java Spring Boot application (simulates smart devices:air conditions, doors, alarms)
+- **frontend/** -> React application (user interface, Google login, managing devices)
+- **backend/** -> Spring Boot application (REST API, authentication,access control)
+- **simulator/** -> Java Spring Boot application (simulates smart devices:air conditions, doors, alarms)
 
---
+---
 
 ## Features
 - Google Sign-In authentication using Firebase
@@ -27,7 +44,7 @@ Devices are simulated in Spring Boot simulator, while frontend and backend are s
 - Logging system for all simulated device events
 - Client-based access management (Admins grant/revoke access)
 
---
+---
 
 ## Technologies Used
 - **Backend:** Java, Spring Boot, Firebase Admin SDK
@@ -35,7 +52,25 @@ Devices are simulated in Spring Boot simulator, while frontend and backend are s
 - **Simulator:** Java, Spring Boot, Firebase Database
 - **Database:** Firebase Realtime Database
 
---
+---
+
+## 🗄️ Database Structure (Firebase Realtime Database)
+
+The application uses **Firebase Realtime Database** to store users, devices, access permissions, and logs.  
+Data is stored in a tree-like JSON structure with the following main nodes:
+
+| Node                 | Fields / Structure                                                                 | Description |
+|----------------------|------------------------------------------------------------------------------------|-------------|
+| **users**            | `uid`, `displayName`, `email`, `role` (USER / ADMIN / SUPERADMIN), `client`        | Stores all registered users with role and organization |
+| **door**             | `id`, `name`, `client`, `ownerUid`, `locked`, `open`, `lastPing`, `logs[]`        | Stores door devices, their current state, and logs |
+| **alarm**            | `id`, `name`, `client`, `ownerUid`, `isWorking`, `breakIn`, `lastPing`, `logs[]`  | Stores alarms, their state, break-in status, and logs |
+| **airCondition**     | `id`, `name`, `client`, `ownerUid`, `isWorking`, `mode` (heat/cold), `currentTemperature`, `desiredTemperature`, `lastPing`, `logs[]` | Stores air conditioners and their states |
+| **door_users**       | `<doorId>/<uid>: true`                                                            | Mapping of users who have access to a specific door |
+| **alarm_users**      | `<alarmId>/<uid>: true`                                                           | Mapping of users who have access to a specific alarm |
+| **airCondition_users** | `<acId>/<uid>: true`                                                            | Mapping of users who have access to a specific AC |
+| **clients**          | `<clientName>/<email>: true`                                                      | Defines clients and their members |
+
+---
 
 ## API Endpoints
 
@@ -94,20 +129,30 @@ All requests must include a valid **Firebase Token** in the `Authorization` head
 ## Screenshots
 ---
 ### Login
-![login](./screenshots/login.png)
+![login](./screenshots/login.PNG)
+
 ### SuperAdmin interface
-![superadmin](./screenshots/superadmin.png)
+![superadmin](./screenshots/superadmin.PNG)
+
 ### Admin interface
-![admin](./screenshots/admin.png)
+![admin](./screenshots/admin.PNG)
+
 ### User interface
-![user](./screenshots/user.png)
+![user](./screenshots/user.PNG)
+
 ### Access
-![access](./screenshots/access.png)
+![access](./screenshots/access.PNG)
+
 ### Air Condition
-![ac](./screenshots/ac.png)
+![ac](./screenshots/ac.PNG)
+
 ### Alarm
-![alarm](./screenshots/alarm.png)
+![alarm](./screenshots/alarm.PNG)
+
 ### Break-in
-![breakin](./screenshots/breakin.png)
+![breakin](./screenshots/breakin.PNG)
+
 ### Door
-![door](./screenshots/door.png)
+![door](./screenshots/door.PNG)
+
+[Back to top](#-table-of-contents)
